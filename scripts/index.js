@@ -6,10 +6,13 @@ var tar = require('tar-stream')
 let path = require('path');
 
 var noFilter = () => true;
-
-module.exports =function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball) {
+var noop = ()=>{};
+module.exports =function packAndExtract(packArg, relativeDirectory,callback, filter, deleteGzippedTarball) {
     if (!filter) {
         filter = noFilter;
+    }
+    if (!callback) {
+        callback = noop;
     }
     if (deleteGzippedTarball == null) {
         deleteGzippedTarball = true;
@@ -53,7 +56,10 @@ module.exports =function packAndExtract(packArg, relativeDirectory, filter, dele
                         if (err) {
                             console.log("error deleting the pack");
                         }
+                        callback();
                     })
+                } else {
+                    callback();
                 }
 
             })
