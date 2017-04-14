@@ -7,7 +7,7 @@ let path = require('path');
 
 var noFilter = () => true;
 
-exports =function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball) {
+module.exports =function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball) {
     if (!filter) {
         filter = noFilter;
     }
