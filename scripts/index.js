@@ -11,6 +11,9 @@ module.exports =function packAndExtract(packArg, relativeDirectory, filter, dele
     if (!filter) {
         filter = noFilter;
     }
+    if (deleteGzippedTarball == null) {
+        deleteGzippedTarball = true;
+    }
     npm.pack("generator-generator", (err, file) => {
         if (err) {
             console.log(err.message);

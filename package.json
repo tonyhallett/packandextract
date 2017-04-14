@@ -1,6 +1,6 @@
 {
   "name": "packandextract",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "npm pack and then extract chosen files to directory, creating as necessary",
   "main": "scripts/index.js",
   "scripts": {
