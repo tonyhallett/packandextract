@@ -1,18 +1,13 @@
-console.log("running script");
 var fs = require('file-system');
-var del = require('delete');
-var npm = require('./npm');//*****************
-var gunzip = require('gunzip-maybe')//***************
-var tar = require('tar-stream')//************
+var del = require('delete')
+var npm = require('./npm');
+var gunzip = require('gunzip-maybe')
+var tar = require('tar-stream')
 let path = require('path');
-
-
-
-
 
 var noFilter = () => true;
 
-function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball) {
+exports =function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball) {
     if (!filter) {
         filter = noFilter;
     }
@@ -66,4 +61,5 @@ function packAndExtract(packArg, relativeDirectory, filter, deleteGzippedTarball
         }
     });
 }
+
 

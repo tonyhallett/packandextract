@@ -2,7 +2,7 @@
   "name": "packandextract",
   "version": "1.0.0",
   "description": "npm pack and then extract chosen files to directory, creating as necessary",
-  "main": "index.js",
+  "main": "scripts/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,13 +15,16 @@
     "extract"
   ],
   "author": "Tony hallett",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tonyhallett/packandextract/issues"
   },
   "homepage": "https://github.com/tonyhallett/packandextract#readme",
   "dependencies": {
+    "delete": "^0.3.2",
+    "file-system": "^2.2.2",
     "gunzip-maybe": "^1.4.0",
     "tar-stream": "^1.5.2"
-  }
+  },
+  "files": ["scripts"]
 }
