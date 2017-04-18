@@ -1,27 +1,27 @@
 var fs = require('file-system');
-var del = require('delete')
+var del = require('delete');
 var npm = require('./npm');
-var gunzip = require('gunzip-maybe')
-var tar = require('tar-stream')
+var gunzip = require('gunzip-maybe');
+var tar = require('tar-stream');
 let path = require('path');
 
 var noFilter = () => true;
 var noop = ()=>{};
-module.exports =function packAndExtract(packArg, relativeDirectory,callback, filter, deleteGzippedTarball) {
+module.exports = function packAndExtract(packArg, relativeDirectory, callback, filter, deleteGzippedTarball) {
     if (!filter) {
         filter = noFilter;
     }
     if (!callback) {
         callback = noop;
     }
-    if (deleteGzippedTarball == null) {
+    if (deleteGzippedTarball === null) {
         deleteGzippedTarball = true;
     }
     npm.pack(packArg, (err, file) => {
         if (err) {
             console.log(err.message);
         } else {
-            var extract = tar.extract()
+            var extract = tar.extract();
             extract.on('entry', function (header, stream, next) {
                 // call next when you are done with this entry
                 var filePath = header.name.substring(8);
@@ -41,13 +41,13 @@ module.exports =function packAndExtract(packArg, relativeDirectory,callback, fil
                         stream.resume();
                     });
                     stream.on('end', function () {
-                        next() // ready for next entry
-                    })
+                        next(); // ready for next entry
+                    });
 
                 } else {
                     next();
                 }
-            })
+            });
 
             extract.on('finish', function () {
                 // all entries read
@@ -57,18 +57,18 @@ module.exports =function packAndExtract(packArg, relativeDirectory,callback, fil
                             console.log("error deleting the pack");
                         }
                         callback();
-                    })
+                    });
                 } else {
                     callback();
                 }
 
-            })
+            });
             var gzippedTarballStream = fs.createReadStream(file);
             gzippedTarballStream.on('open', () => {
                 gzippedTarballStream.pipe(gunzip()).pipe(extract);
-            })
+            });
         }
     });
-}
+};
 
 
